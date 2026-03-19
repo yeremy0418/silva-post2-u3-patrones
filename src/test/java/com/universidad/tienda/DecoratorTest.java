@@ -1,7 +1,6 @@
 package com.universidad.tienda;
 
 import com.universidad.tienda.decorator.AuditoriaDecorator;
-import com.universidad.tienda.decorator.DecoratorConfig;
 import com.universidad.tienda.decorator.LoggingDecorator;
 import com.universidad.tienda.decorator.OrdenServicio;
 import com.universidad.tienda.decorator.OrdenServicioBase;
@@ -15,7 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class DecoratorTest {
 
     private OrdenServicio buildCompleto() {
-    return new DecoratorConfig().ordenServicio();
+    DecoratorConfig config = new DecoratorConfig();
+    return config.ordenServicioCompleto(config.ordenBase());
     }
 
     @Test
