@@ -1,20 +1,15 @@
 # Proyecto: Patron Decorator en Java
 
-Implementacion del patron de diseno **Decorator** para una tienda que construye ordenes dinamicamente con:
-
-- Envio express
-- Empaque de regalo
-- Cupon de descuento
+Implementacion del patron de diseno **Decorator** siguiendo la estructura de clases solicitada en la guia del curso.
 
 ## Estructura principal
 
-- `Orden`: componente base
-- `OrdenBase`: implementacion concreta del componente
-- `OrdenDecorator`: decorador abstracto
-- `EnvioExpressDecorator`: decorador concreto
-- `EmpaqueRegaloDecorator`: decorador concreto
-- `CuponDescuentoDecorator`: decorador concreto
-- `OrdenServicio`: fachada para construir ordenes
+- `OrdenServicio`: Component (interface)
+- `OrdenServicioBase`: ConcreteComponent
+- `OrdenServicioDecorator`: Decorator abstracto
+- `LoggingDecorator`: ConcreteDecorator 1
+- `ValidacionDecorator`: ConcreteDecorator 2
+- `AuditoriaDecorator`: ConcreteDecorator 3
 - `App`: demo de uso
 
 ## Checkpoints de verificacion
@@ -28,8 +23,8 @@ Implementacion del patron de diseno **Decorator** para una tienda que construye 
    - Esperado: todas las pruebas en verde
 
 3. **Verificacion funcional (manual)**
-   - Comando: `mvn exec:java -Dexec.mainClass="com.universidad.tienda.App"`
-   - Esperado: impresion de descripcion y costo final de una orden compuesta
+   - Comando: `java -cp target/classes com.universidad.tienda.App`
+   - Esperado: impresion de la cadena de procesamiento con decoradores
 
 ## Cobertura de criterios de rubrica (evidencia tecnica)
 
@@ -42,11 +37,11 @@ Implementacion del patron de diseno **Decorator** para una tienda que construye 
    - Responsabilidades separadas por clase.
 
 3. **Calidad y pruebas**
-   - Casos base, acumulacion de decoradores, descuento y validaciones de error.
-   - Verificacion de descripcion y costo final.
+   - Casos base, cadena de decoradores y validacion de errores por componente nulo.
+   - Verificacion del orden de aplicacion de decoradores.
 
 4. **Demostracion de uso**
-   - Clase `App` con escenario completo de orden premium.
+   - Clase `App` con composicion de `LoggingDecorator`, `ValidacionDecorator` y `AuditoriaDecorator`.
 
 ## Comandos utiles
 

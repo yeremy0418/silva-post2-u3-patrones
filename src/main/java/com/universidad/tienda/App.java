@@ -1,7 +1,10 @@
 package com.universidad.tienda;
 
-import com.universidad.tienda.decorator.Orden;
+import com.universidad.tienda.decorator.AuditoriaDecorator;
+import com.universidad.tienda.decorator.LoggingDecorator;
 import com.universidad.tienda.decorator.OrdenServicio;
+import com.universidad.tienda.decorator.OrdenServicioBase;
+import com.universidad.tienda.decorator.ValidacionDecorator;
 
 /**
  * Demostracion basica del patron Decorator para ordenes.
@@ -9,17 +12,11 @@ import com.universidad.tienda.decorator.OrdenServicio;
  */
 public class App {
     public static void main(String[] args) {
-        OrdenServicio servicio = new OrdenServicio();
+        OrdenServicio servicio = new OrdenServicioBase();
+        servicio = new LoggingDecorator(servicio);
+        servicio = new ValidacionDecorator(servicio);
+        servicio = new AuditoriaDecorator(servicio);
 
-        Orden ordenPremium = servicio.crearOrdenCompletaConDescuento(
-                "Laptop",
-                1200.0,
-                true,
-                true,
-                120.0
-        );
-
-        System.out.println("Descripcion: " + ordenPremium.getDescripcion());
-        System.out.println("Costo final: $" + ordenPremium.getCosto());
+        System.out.println(servicio.procesarOrden());
     }
 }

@@ -8,60 +8,61 @@ import org.junit.Test;
 public class OrdenServicioTest {
 
     @Test
-    public void crearOrdenBase_debeRetornarCostoYDescripcionBase() {
-        OrdenServicio servicio = new OrdenServicio();
+    public void ordenServicioBase_debeProcesarOrdenBase() {
+        OrdenServicio servicio = new OrdenServicioBase();
 
-        Orden orden = servicio.crearOrdenBase("Mouse", 20.0);
+        String resultado = servicio.procesarOrden();
 
-        assertEquals("Mouse", orden.getDescripcion());
-        assertEquals(20.0, orden.getCosto(), 0.001);
+        assertEquals("Orden procesada", resultado);
     }
 
     @Test
-    public void agregarDecoradores_debeAcumularCosto() {
-        OrdenServicio servicio = new OrdenServicio();
+    public void loggingDecorator_debeAgregarComportamiento() {
+        OrdenServicio servicio = new LoggingDecorator(new OrdenServicioBase());
 
-        Orden orden = servicio.crearOrdenBase("Teclado", 50.0);
-        orden = servicio.agregarEnvioExpress(orden);
-        orden = servicio.agregarEmpaqueRegalo(orden);
+        String resultado = servicio.procesarOrden();
 
-        assertEquals(83.0, orden.getCosto(), 0.001);
+        assertTrue(resultado.contains("Orden procesada"));
+        assertTrue(resultado.contains("Logging aplicado"));
     }
 
     @Test
-    public void aplicarDescuento_noDebePermitirCostoNegativo() {
-        OrdenServicio servicio = new OrdenServicio();
+    public void validacionDecorator_debeAgregarComportamiento() {
+        OrdenServicio servicio = new ValidacionDecorator(new OrdenServicioBase());
 
-        Orden orden = servicio.crearOrdenBase("Cable HDMI", 10.0);
-        orden = servicio.aplicarDescuento(orden, 99.0);
+        String resultado = servicio.procesarOrden();
 
-        assertEquals(0.0, orden.getCosto(), 0.001);
+        assertTrue(resultado.contains("Orden procesada"));
+        assertTrue(resultado.contains("Validacion aplicada"));
     }
 
     @Test
-    public void crearOrdenCompletaConDescuento_debeAplicarTodosLosAjustes() {
-        OrdenServicio servicio = new OrdenServicio();
+    public void auditoriaDecorator_debeAgregarComportamiento() {
+        OrdenServicio servicio = new AuditoriaDecorator(new OrdenServicioBase());
 
-        Orden orden = servicio.crearOrdenCompletaConDescuento("Monitor", 300.0, true, true, 50.0);
+        String resultado = servicio.procesarOrden();
 
-        assertEquals(283.0, orden.getCosto(), 0.001);
-        assertTrue(orden.getDescripcion().contains("Monitor"));
-        assertTrue(orden.getDescripcion().contains("Envio Express"));
-        assertTrue(orden.getDescripcion().contains("Empaque de Regalo"));
-        assertTrue(orden.getDescripcion().contains("Cupon de Descuento"));
+        assertTrue(resultado.contains("Orden procesada"));
+        assertTrue(resultado.contains("Auditoria aplicada"));
+    }
+
+    @Test
+    public void cadenaDeDecoradores_debeConservarOrden() {
+        OrdenServicio servicio = new OrdenServicioBase();
+        servicio = new LoggingDecorator(servicio);
+        servicio = new ValidacionDecorator(servicio);
+        servicio = new AuditoriaDecorator(servicio);
+
+        String resultado = servicio.procesarOrden();
+
+        assertEquals(
+                "Orden procesada | Logging aplicado | Validacion aplicada | Auditoria aplicada",
+                resultado
+        );
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void crearOrdenBase_conDescripcionVacia_debeLanzarExcepcion() {
-        OrdenServicio servicio = new OrdenServicio();
-        servicio.crearOrdenBase(" ", 50.0);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void aplicarDescuentoNegativo_debeLanzarExcepcion() {
-        OrdenServicio servicio = new OrdenServicio();
-
-        Orden orden = servicio.crearOrdenBase("Tablet", 200.0);
-        servicio.aplicarDescuento(orden, -5.0);
+    public void decorator_conComponenteNulo_debeLanzarExcepcion() {
+        new LoggingDecorator(null);
     }
 }
