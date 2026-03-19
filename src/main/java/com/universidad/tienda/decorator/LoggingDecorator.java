@@ -7,6 +7,7 @@ public class LoggingDecorator extends OrdenServicioDecorator {
     }
 
     public String procesarOrden(String ordenId, double monto) {
+        System.out.println("LOG");
         return super.procesarOrden(ordenId, monto) + " | Logging aplicado";
     }
 }

@@ -7,6 +7,7 @@ public class ValidacionDecorator extends OrdenServicioDecorator {
     }
 
     public String procesarOrden(String ordenId, double monto) {
+        System.out.println("VALIDACION");
         if (ordenId == null || ordenId.trim().isEmpty()) {
             throw new IllegalArgumentException("El id de orden es obligatorio");
         }

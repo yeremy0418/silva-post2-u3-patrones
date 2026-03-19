@@ -7,6 +7,7 @@ public class AuditoriaDecorator extends OrdenServicioDecorator {
     }
 
     public String procesarOrden(String ordenId, double monto) {
+        System.out.println("AUDITORIA");
         return super.procesarOrden(ordenId, monto) + " | Auditoria aplicada";
     }
 }

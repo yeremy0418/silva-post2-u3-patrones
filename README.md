@@ -10,7 +10,8 @@ Implementacion del patron de diseno **Decorator** siguiendo la estructura de cla
 - `LoggingDecorator`: ConcreteDecorator 1
 - `ValidacionDecorator`: ConcreteDecorator 2
 - `AuditoriaDecorator`: ConcreteDecorator 3
-- `App`: demo de uso
+- `DecoratorConfig`: composicion de la cadena `Auditoria -> Validacion -> Log -> Base`
+- `NotificacionFacade`: fachada para notificar en Email, SMS y Push
 
 ## Checkpoints de verificacion
 
@@ -24,7 +25,7 @@ Implementacion del patron de diseno **Decorator** siguiendo la estructura de cla
 
 3. **Verificacion funcional (tests automatizados)**
    - Comando: `mvn test`
-   - Esperado: pruebas del patron Decorator en verde
+   - Esperado: pruebas del patron Decorator y Facade en verde
 
 ## Cobertura de criterios de rubrica (evidencia tecnica)
 
@@ -37,11 +38,11 @@ Implementacion del patron de diseno **Decorator** siguiendo la estructura de cla
    - Responsabilidades separadas por clase.
 
 3. **Calidad y pruebas**
-   - Casos base, cadena de decoradores y validacion de errores por componente nulo.
-   - Verificacion del orden de aplicacion de decoradores.
+   - Casos base, cadena de decoradores y validacion de datos invalidos.
+   - Verificacion de propagacion de excepciones y del facade de notificaciones.
 
 4. **Demostracion de uso**
-   - Clase `App` con composicion de `LoggingDecorator`, `ValidacionDecorator` y `AuditoriaDecorator`.
+   - Pruebas JUnit 5 como evidencia ejecutable de composicion y comportamiento.
 
 ## Comandos utiles
 
