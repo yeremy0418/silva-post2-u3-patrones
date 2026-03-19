@@ -6,7 +6,7 @@ public class AuditoriaDecorator extends OrdenServicioDecorator {
         super(ordenServicio);
     }
 
-    public String procesarOrden() {
-        return super.procesarOrden() + " | Auditoria aplicada";
+    public String procesarOrden(String ordenId, double monto) {
+        return super.procesarOrden(ordenId, monto) + " | Auditoria aplicada";
     }
 }

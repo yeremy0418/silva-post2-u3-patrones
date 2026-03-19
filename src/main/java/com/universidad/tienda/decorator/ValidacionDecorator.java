@@ -6,7 +6,13 @@ public class ValidacionDecorator extends OrdenServicioDecorator {
         super(ordenServicio);
     }
 
-    public String procesarOrden() {
-        return super.procesarOrden() + " | Validacion aplicada";
+    public String procesarOrden(String ordenId, double monto) {
+        if (ordenId == null || ordenId.trim().isEmpty()) {
+            throw new IllegalArgumentException("El id de orden es obligatorio");
+        }
+        if (monto <= 0) {
+            throw new IllegalArgumentException("El monto debe ser mayor a cero");
+        }
+        return super.procesarOrden(ordenId, monto) + " | Validacion aplicada";
     }
 }

@@ -1,5 +1,5 @@
 package com.universidad.tienda.decorator;
 
 public interface OrdenServicio {
-    String procesarOrden();
+    String procesarOrden(String ordenId, double monto);
 }

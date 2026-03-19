@@ -21,7 +21,7 @@ public class App {
         servicio = new ValidacionDecorator(servicio);
         servicio = new AuditoriaDecorator(servicio);
 
-        System.out.println(servicio.procesarOrden());
+        System.out.println(servicio.procesarOrden("ORD-001", 50000.0));
 
         NotificacionFacade notificacionFacade = new NotificacionFacade(
             new EmailService(),

@@ -10,7 +10,7 @@ public abstract class OrdenServicioDecorator implements OrdenServicio {
         this.ordenServicio = ordenServicio;
     }
 
-    public String procesarOrden() {
-        return ordenServicio.procesarOrden();
+    public String procesarOrden(String ordenId, double monto) {
+        return ordenServicio.procesarOrden(ordenId, monto);
     }
 }
