@@ -2,6 +2,30 @@
 
 Implementacion del patron de diseno **Decorator** siguiendo la estructura de clases solicitada en la guia del curso.
 
+## Diagrama de composicion (Decorator)
+
+```text
+Cliente
+  -> ordenCompleto (bean)
+     -> AuditoriaDecorator
+        -> ValidacionDecorator
+           -> LoggingDecorator
+              -> OrdenServicioBase
+```
+
+Pseudocodigo de composicion en configuracion:
+
+```java
+@Bean("ordenBase")
+OrdenServicio ordenBase() = new OrdenServicioBase();
+
+@Bean("ordenCompleto")
+OrdenServicio ordenServicioCompleto(ordenBase) =
+   new AuditoriaDecorator(
+      new ValidacionDecorator(
+         new LoggingDecorator(ordenBase)));
+```
+
 ## Estructura principal
 
 - `OrdenServicio`: Component (interface)
@@ -43,6 +67,19 @@ Implementacion del patron de diseno **Decorator** siguiendo la estructura de cla
 
 4. **Demostracion de uso**
    - Pruebas JUnit 5 como evidencia ejecutable de composicion y comportamiento.
+
+## Justificacion de Facade
+
+Se usa `NotificacionFacade` para ocultar la complejidad del subsistema (`EmailService`, `SMSService`, `PushService`) y exponer una API simple al cliente.
+
+Sin Facade:
+- El cliente deberia conocer y coordinar manualmente cada servicio.
+- Se duplicaria logica de mensajes, asunto y flujo de notificacion.
+
+Con Facade:
+- Una sola llamada para notificar compra exitosa o error de pago.
+- Menor acoplamiento del cliente con el subsistema de notificaciones.
+- Mantenimiento y evolucion centralizados en la fachada.
 
 ## Comandos utiles
 
