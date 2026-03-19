@@ -22,9 +22,9 @@ Implementacion del patron de diseno **Decorator** siguiendo la estructura de cla
    - Comando: `mvn test`
    - Esperado: todas las pruebas en verde
 
-3. **Verificacion funcional (manual)**
-   - Comando: `java -cp target/classes com.universidad.tienda.App`
-   - Esperado: impresion de la cadena de procesamiento con decoradores
+3. **Verificacion funcional (tests automatizados)**
+   - Comando: `mvn test`
+   - Esperado: pruebas del patron Decorator en verde
 
 ## Cobertura de criterios de rubrica (evidencia tecnica)
 
