@@ -5,6 +5,10 @@ import com.universidad.tienda.decorator.LoggingDecorator;
 import com.universidad.tienda.decorator.OrdenServicio;
 import com.universidad.tienda.decorator.OrdenServicioBase;
 import com.universidad.tienda.decorator.ValidacionDecorator;
+import com.universidad.tienda.facade.EmailService;
+import com.universidad.tienda.facade.NotificacionFacade;
+import com.universidad.tienda.facade.PushService;
+import com.universidad.tienda.facade.SMSService;
 
 /**
  * Demostracion basica del patron Decorator para ordenes.
@@ -18,5 +22,24 @@ public class App {
         servicio = new AuditoriaDecorator(servicio);
 
         System.out.println(servicio.procesarOrden());
+
+        NotificacionFacade notificacionFacade = new NotificacionFacade(
+            new EmailService(),
+            new SMSService(),
+            new PushService()
+        );
+
+        notificacionFacade.notificarCompraExitosa(
+            "cliente@correo.com",
+            "+593999999999",
+            "token-demo-123",
+            "ORD-001"
+        );
+
+        notificacionFacade.notificarErrorPago(
+            "cliente@correo.com",
+            "+593999999999",
+            "ORD-002"
+        );
     }
 }
